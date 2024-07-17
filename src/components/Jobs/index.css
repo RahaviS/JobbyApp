@@ -3,6 +3,17 @@
   flex-direction: row;
   justify-content: space-between;
   background-color: #000000;
+  padding: 20px;
+}
+.side-bar {
+  top: 0;
+  position: sticky;
+}
+.job-details-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 .job-list {
   list-style-type: none;
@@ -33,4 +44,33 @@
   width: 30px;
   cursor: pointer;
   outline: none;
+}
+.title-type {
+  font-family: 'Roboto';
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+.search-section {
+  background-color: white;
+  border: 0;
+  width: 500px;
+  height: 40px;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+.search-box {
+  width: 400px;
+  height: 40px;
+  border: 0;
+  outline: none;
+  background-color: transparent;
+}
+.search-btn {
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  border: 0;
+  width: 80px;
+  height: 40px;
 }

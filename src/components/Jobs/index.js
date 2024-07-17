@@ -45,6 +45,29 @@ const salaryRangesList = [
   },
 ]
 
+const locationsList = [
+  {
+    label: 'Hyderabad',
+    locationId: 'HYDERABAD',
+  },
+  {
+    label: 'Bangalore',
+    locationId: 'BANGALORE',
+  },
+  {
+    label: 'Chennai',
+    locationId: 'CHENNAI',
+  },
+  {
+    label: 'Delhi',
+    locationId: 'DELHI',
+  },
+  {
+    label: 'Mumbai',
+    locationId: 'MUMBAI',
+  },
+]
+
 const apiStatusConstants = {
   initial: 'INITIAL',
   success: 'SUCCESS',
@@ -56,6 +79,7 @@ class Jobs extends Component {
   state = {
     jobsList: [],
     checkBoxList: [],
+    locationCheckbox: [],
     radioInput: '',
     searchInput: '',
     apiStatus: apiStatusConstants.initial,
@@ -67,10 +91,12 @@ class Jobs extends Component {
 
   getJobs = async () => {
     this.setState({apiStatus: apiStatusConstants.inProgress})
-    const {checkBoxList, radioInput, searchInput} = this.state
+    const {checkBoxList, radioInput, searchInput, locationCheckbox} = this.state
     const type = checkBoxList.join(',')
+    const location = locationCheckbox.join(',')
+
     const jwtToken = Cookies.get('jwt_token')
-    const apirUrl = `https://apis.ccbp.in/jobs?employment_type=${type}&minimum_package=${radioInput}&search=${searchInput}`
+    const apirUrl = `https://apis.ccbp.in/jobs?employment_type=${type}&minimum_package=${radioInput}&search=${searchInput}&location=${location}`
     const options = {
       method: 'GET',
       headers: {
@@ -106,7 +132,7 @@ class Jobs extends Component {
 
   onChangeCheckbox = event => {
     const {checkBoxList} = this.state
-    console.log(event.target.id)
+    // console.log(event.target.id)
     const inputInList = checkBoxList.filter(each => each === event.target.id)
     if (inputInList.length === 0) {
       this.setState(
@@ -118,6 +144,26 @@ class Jobs extends Component {
     } else {
       const filteredList = checkBoxList.filter(each => each !== event.target.id)
       this.setState({checkBoxList: filteredList}, this.getJobs)
+    }
+  }
+
+  onChangeLocation = event => {
+    const {locationCheckbox} = this.state
+    const locationinList = locationCheckbox.filter(
+      each => each === event.target.id,
+    )
+    if (locationinList.length === 0) {
+      this.setState(
+        prevState => ({
+          locationCheckbox: [...prevState.locationCheckbox, event.target.id],
+        }),
+        this.getJobs,
+      )
+    } else {
+      const updatedLocationList = locationCheckbox.filter(
+        each => each !== event.target.id,
+      )
+      this.setState({locationCheckbox: updatedLocationList}, this.getJobs)
     }
   }
 
@@ -219,10 +265,28 @@ class Jobs extends Component {
     </ul>
   )
 
+  renderLocationCheckBox = () => (
+    <ul className="checkBox-list">
+      {locationsList.map(eachLocation => (
+        <li className="checkbox-item" key={eachLocation.locationId}>
+          <input
+            type="checkBox"
+            className="checkbox-input"
+            id={eachLocation.locationId}
+            onChange={this.onChangeLocation}
+          />
+          <label className="label" htmlFor={eachLocation.locationId}>
+            {eachLocation.label}
+          </label>
+        </li>
+      ))}
+    </ul>
+  )
+
   renderSearchBar = () => {
     const {searchInput} = this.state
     return (
-      <>
+      <div className="search-section">
         <input
           type="search"
           className="search-box"
@@ -238,9 +302,9 @@ class Jobs extends Component {
           onClick={this.onSubmitSearch}
           aria-label="search"
         >
-          <AiOutlineSearch className="search-icon" />
+          <AiOutlineSearch className="search-icon" size={25} />
         </button>
-      </>
+      </div>
     )
   }
 
@@ -271,6 +335,9 @@ class Jobs extends Component {
             <hr />
             <h1 className="title-type">Salary Range</h1>
             {this.renderRadioButton()}
+            <hr />
+            <h1 className="title-type">Location</h1>
+            {this.renderLocationCheckBox()}
           </div>
           <div className="job-details-section">
             <div>{this.renderSearchBar()}</div>

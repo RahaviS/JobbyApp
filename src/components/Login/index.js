@@ -46,50 +46,50 @@ class Login extends Component {
     const {errMsg, showErr, username, password} = this.state
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken !== undefined) {
-      return <Redirect to='/' />
+      return <Redirect to="/" />
     }
     return (
-      <div className='bg-container'>
-        <div className='app-container'>
-          <form onSubmit={this.onSubmitForm} className='myForm'>
+      <div className="bg-container">
+        <div className="app-container">
+          <form onSubmit={this.onSubmitForm} className="myForm">
             <img
-              src='https://assets.ccbp.in/frontend/react-js/logo-img.png'
-              alt='website logo'
-              className='web-logo'
+              src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
+              alt="website logo"
+              className="web-logo"
             />
-            <label className='label-text' htmlFor='username'>
+            <label className="label-text" htmlFor="username">
               USERNAME
             </label>
             <br />
             <input
-              type='text'
-              className='input-box'
+              type="text"
+              className="input-box"
               value={username}
               onChange={this.onChangeUsername}
-              placeholder='username'
-              id='username'
+              placeholder="username"
+              id="username"
             />
             <br />
             <br />
-            <label className='label-text' htmlFor='password'>
+            <label className="label-text" htmlFor="password">
               PASSWORD
             </label>
             <br />
             <input
-              type='password'
-              className='input-box'
+              type="password"
+              className="input-box"
               value={password}
               onChange={this.onChangePassword}
-              placeholder='password'
-              id='password'
+              placeholder="password"
+              id="password"
             />
             <br />
             <br />
 
-            <button type='submit' className='login-btn'>
+            <button type="submit" className="login-btn">
               Login
             </button>
-            {showErr && <p className='err-msg'>{`*${errMsg}`}</p>}
+            {showErr && <p className="err-msg">{`*${errMsg}`}</p>}
           </form>
         </div>
       </div>
