@@ -1,0 +1,36 @@
+.jobs-page {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #000000;
+}
+.job-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+.checkBox-list {
+  list-style: none;
+}
+.checkbox-item {
+  font-family: 'Roboto';
+  color: #ffffff;
+  font-size: 20px;
+}
+.checkbox-input {
+  width: 30px;
+  cursor: pointer;
+  outline: none;
+}
+.radio-btn-list {
+  list-style-type: none;
+}
+.radio-item {
+  font-family: 'Roboto';
+  color: #ffffff;
+  font-size: 20px;
+}
+.radio-input {
+  width: 30px;
+  cursor: pointer;
+  outline: none;
+}
